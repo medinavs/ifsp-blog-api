@@ -3,6 +3,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { FIVE_MINUTES_IN_SEC, ONE_WEEK_IN_SEC } from "@/shared/config/constants";
 import { admin } from "better-auth/plugins"
 import { prisma } from "@/shared/infra/database/client"
+import { env } from "@/shared/config/env";
 
 
 export const auth = betterAuth({
@@ -29,7 +30,7 @@ export const auth = betterAuth({
         }
     },
     logger: {
-        level: "debug", // Adicione logs para debug
-        disabled: false,
+        level: "debug",
+        disabled: env.IS_DEVELOP_MODE ? false : true,
     },
 })
