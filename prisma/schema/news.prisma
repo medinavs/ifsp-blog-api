@@ -1,0 +1,25 @@
+model News {
+    id         String     @id @default(uuid())
+    title      String
+    excerpt    String
+    content    String?
+    categoryId String
+    date       DateTime   @default(now())
+    author     String
+    image      String
+    status     NewsStatus @default(DRAFT)
+    views      Int        @default(0)
+    featured   Boolean    @default(false)
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @updatedAt
+
+    category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+    @@map("news")
+}
+
+enum NewsStatus {
+    PUBLISHED
+    DRAFT
+    ARCHIVED
+}
